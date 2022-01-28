@@ -1,0 +1,36 @@
+Metadata-Version: 2.1
+Name: screcode
+Version: 0.1.1.dev202201270359
+Summary: scRECODE
+Home-page: https://github.com/yusuke-imoto-lab/RECODE
+Author: Yusuke Imoto
+Requires-Python: >=3.7,<3.10
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Requires-Dist: adjustText (>=0.7)
+Requires-Dist: matplotlib (>=3.4.3)
+Requires-Dist: numpy (>=1.20)
+Requires-Dist: scikit-learn (>=0.24)
+Requires-Dist: scipy (>=1.7.1)
+Requires-Dist: seaborn (>=0.11.2)
+Project-URL: Documentation, https://yusuke-imoto-lab.github.io/RECODE/
+Project-URL: Repository, https://github.com/yusuke-imoto-lab/RECODE
+Description-Content-Type: text/markdown
+
+# RECODE - python code
+
+## Installation
+To install RECODE package, use `pip` as follows:
+
+```
+$ pip install screcode
+```
+
+## Requirements
+* Python3
+* numpy
+* scipy
+* scikit-learn
+

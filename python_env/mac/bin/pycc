@@ -1,0 +1,3 @@
+#!/Users/yu/ftfit-optimizer/python_env/mac/bin/python3.9
+from numba.pycc import main
+main()

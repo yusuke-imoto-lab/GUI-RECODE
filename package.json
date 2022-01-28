@@ -1,0 +1,30 @@
+{
+  "name": "GUI-RECODE",
+  "version": "0.0.1",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "chcp 65001 && electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "RICOS Co. Ltd.",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^16.0.7"
+  },
+  "build": {
+    "files": [
+      "!docker/",
+      "!python_env/"
+    ],
+    "asarUnpack": [
+      "python/"
+    ],
+    "asar": true
+  },
+  "dependencies": {
+    "@electron/remote": "^2.0.1",
+    "path": "^0.12.7",
+    "tree-kill": "^1.2.2"
+  }
+}
