@@ -129,27 +129,30 @@ function dispLoading(msg){
   var dispMsg = `
   <div class="loadingMsg">
   <p><i class="fa fa-circle-notch fa-spin fa-8x fa-fw" style="color: cornflowerblue;"></i></p>
-  <p>` + msg + `</p>
+  <p id="progress_message">` + msg + `</p>
   <button id='btn_kill' class='btn btn-danger btn-block'>Cancel</button>
   </div>`;
 
   if($("#loading").length == 0){
     $("#mainwindow").append("<div id='loading'>" + dispMsg + "</div>");
+  }else{
+    $("#loading").find("#progress_message").text(msg);
   }
 }
 function removeLoading(){
   $("#loading").remove();
 }
 document.getElementById("btn_process").addEventListener('click', function() {
+        var a=1, b=9, cancel=0;
         let childProcess = remote.require("child_process");
         var input_path = document.getElementById("input_path").value;
         var output_path = document.getElementById("output_path").value;
         if (!input_path || !output_path){
-            alert("Set the input and output files");
-            return;
+            //alert("Set the input and output files");
+            //return;
         }
         $("#message").empty();
-        dispLoading("Processing");
+        dispLoading("Processing "+a+"/"+b);
         var path = require('path');
         document.getElementById("btn_process").disabled=true
         log = document.getElementById("log")
@@ -163,11 +166,12 @@ document.getElementById("btn_process").addEventListener('click', function() {
         if (!fs.existsSync(workdir)) fs.mkdirSync(workdir);
 
         //var workdir = path.join(remote.app.getPath("temp"));
-        //bin="sleep"
+        //bin=path.join(remote.app.getAppPath(),"test.sh");
         //args=["10"]
 
         
-        log.value += bin + " " + args.join(" ") + "\n" + workdir + "\n";
+        log.value += bin + " " + args.join(" ") + "\n";
+        console.log(workdir);
         var proc = childProcess.spawn(bin, args, {shell: true, cwd: workdir, env: {MPLCONFIGDIR:workdir} })
         proc.on('exit', (code)=>{
             removeLoading();
@@ -176,7 +180,7 @@ document.getElementById("btn_process").addEventListener('click', function() {
                 result="Success"
             }else{
                 result="Failed"
-                $("#message").append("<h2 style='color:red;'>Processing failed</h2>");
+                if (!cancel){$("#message").append("<h2 style='color:red;'>Processing failed</h2>")};
             }
             $("#r_1-1").empty();
             $("#r_1-2").empty();
@@ -225,10 +229,19 @@ document.getElementById("btn_process").addEventListener('click', function() {
         $("#btn_kill").on('click', function() {
           var kill  = remote.require('tree-kill');
           kill(proc.pid);
+          cancel=1
         });
-
-        proc.stdout.on("data", function(data){ log.value+=data.toString(); });
-        proc.stderr.on("data", function(data){ log.value+=data.toString(); });
+        proc.stdout.on("data", function(data){
+            log.value+=data.toString();
+        });
+        proc.stderr.on("data", function(data){
+            var str=data.toString();
+            if(str.match(/^----.*/)){
+                a++;
+                dispLoading("Processing "+a+"/"+b);
+            }
+            log.value+=str;
+        });
 
 });
 

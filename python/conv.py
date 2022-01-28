@@ -14,12 +14,14 @@ else:
     seq = sys.argv[3]
     ftype = sys.argv[4]
 
+print("---- begin", file=sys.stderr)
+
 
 if ftype == "h5":
     adata = scanpy.readwrite._read_v3_10x_h5(input_filename)
+    print("---- loaded input file", file=sys.stderr);
     recode = screcode.RECODE(seq_target=seq)
     data_scRECODE = recode.fit_transform(adata.X.toarray())
-
 else:
     if ftype == "tsv":
         delimiter="\t"
@@ -28,20 +30,27 @@ else:
     elif ftype == "ssv":
         delimiter=" "
     data_pd = pd.read_csv(input_filename,delimiter=delimiter,index_col=0)
+    print("---- loaded input file", file=sys.stderr)
     recode = screcode.RECODE(seq_target=seq)
     data_scRECODE = recode.fit_transform(np.array(data_pd.values))
 
+print("----  recode done", file=sys.stderr)
 adata_scRECODE = adata.copy()
 adata_scRECODE.X = scipy.sparse.csc_matrix(data_scRECODE)
+print("---- convert matrix", file=sys.stderr)
 adata_scRECODE.var['noise_variance'] = recode.noise_variance_
 adata_scRECODE.var['normalized_variance'] = recode.normalized_variance_
 adata_scRECODE.var['significance'] = recode.significance_
 adata_scRECODE.var_names_make_unique()
 adata_scRECODE.write(output_filename)
+print("---- wrote output file", file=sys.stderr);
 
 recode.check_applicability(save = True,save_filename = 'check_applicability', save_format='png', show=False)
+print("---- wrote check_applicability.png", file=sys.stderr);
+
 #recode.plot_procedures(save = True, save_filename = 'plot_procedures',  save_format = 'png',show=False)
 recode.plot_mean_cv(save = True, save_filename = 'plot_mean_cv', save_format='png', show=False)
+print("---- wrote plot_mean_cv.png", file=sys.stderr);
 
 import json
 import numpy as np
@@ -79,7 +88,7 @@ f = open('./generank', 'w')
 f.write(generank.to_csv())
 f.close()
 
-print("Done")
+print("---- done", file=sys.stderr);
 
 #f = open('./generank.html', 'w')
 #f.write(generank.to_html())
