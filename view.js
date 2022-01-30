@@ -142,14 +142,16 @@ function dispLoading(msg){
 function removeLoading(){
   $("#loading").remove();
 }
+var cancel;
 document.getElementById("btn_process").addEventListener('click', function() {
-        var a=1, b=9, cancel=0;
+        var a=1, b=9
+        cancel=0;
         let childProcess = remote.require("child_process");
         var input_path = document.getElementById("input_path").value;
         var output_path = document.getElementById("output_path").value;
         if (!input_path || !output_path){
-            //alert("Set the input and output files");
-            //return;
+            alert("Set the input and output files");
+            return;
         }
         $("#message").empty();
         dispLoading("Processing "+a+"/"+b);
@@ -248,4 +250,40 @@ document.getElementById("btn_process").addEventListener('click', function() {
 });
 
 
+document.getElementById("btn_update").addEventListener('click', function() {
+        cancel=0;
+        let childProcess = remote.require("child_process");
+        $("#message").empty();
+        dispLoading("Updating");
+        var path = require('path');
+        document.getElementById("btn_update").disabled=true
+        log = document.getElementById("log")
+        var apppath = remote.app.getAppPath().replace('app.asar', 'app.asar.unpacked');
+        bin='"'+path.join(apppath,"python","bin","python3")+'"'
+        var args=["-m", "pip" , "install", "--upgrade", "screcode"]
+        log.value += bin + " " + args.join(" ") + "\n";        
+        var proc = childProcess.spawn(bin, args, {shell: true})
+        proc.on('exit', (code)=>{
+            removeLoading();
+            document.getElementById("btn_update").disabled=false
+            if (code != 0){
+                if (!cancel){$("#message").append("<h2 style='color:red;'>Update failed</h2>")};
+            }
+        });
+        ipcRenderer.send('pid-message', proc.pid);
+        $("#btn_kill").off('click');
+        $("#btn_kill").on('click', function() {
+          var kill  = remote.require('tree-kill');
+          kill(proc.pid);
+          cancel=1
+        });
+        proc.stdout.on("data", function(data){
+            log.value+=data.toString();
+        });
+        proc.stderr.on("data", function(data){
+            var str=data.toString();
+            log.value+=str;
+        });
+
+});
 
