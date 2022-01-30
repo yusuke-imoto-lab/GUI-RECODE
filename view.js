@@ -144,7 +144,7 @@ function removeLoading(){
 }
 var cancel;
 document.getElementById("btn_process").addEventListener('click', function() {
-        var a=1, b=9
+        var a=1, b=10
         cancel=0;
         let childProcess = remote.require("child_process");
         var input_path = document.getElementById("input_path").value;
@@ -167,9 +167,9 @@ document.getElementById("btn_process").addEventListener('click', function() {
         var fs = require('fs');
         if (!fs.existsSync(workdir)) fs.mkdirSync(workdir);
 
-        //var workdir = path.join(remote.app.getPath("temp"));
-        //bin=path.join(remote.app.getAppPath(),"test.sh");
-        //args=["10"]
+        //var workdir = remote.app.getAppPath();
+        //bin=path.join("sleep");
+        //args=["1"]
 
         
         log.value += bin + " " + args.join(" ") + "\n";
@@ -187,6 +187,8 @@ document.getElementById("btn_process").addEventListener('click', function() {
             $("#r_1-1").empty();
             $("#r_1-2").empty();
             $("#r_1-3").empty();
+            $("#r_1-4").empty();
+            $("#r_1-5").empty();
             log.value+="Finished. " + result + "\n";
 
             op=path.parse(output_path);
@@ -199,19 +201,33 @@ document.getElementById("btn_process").addEventListener('click', function() {
             }
             if (fs.existsSync(file)) { i=addImage(file,$("#r_1-1")); }
 
-            pngfile="plot_mean_cv_Original.png"
+            pngfile="plot_mean_variance_Original.png"
             file=path.join(workdir,pngfile);
             if ($("#img").prop("checked")){
                 if (fs.existsSync(file)) { fs.copyFileSync(file,path.join(op.dir,op.name+"."+pngfile)) }
             }
             if (fs.existsSync(file)) { i=addImage(file,$("#r_1-2")); }
 
-            pngfile="plot_mean_cv_RECODE.png"
+            pngfile="plot_mean_variance_RECODE.png"
             file=path.join(workdir,pngfile);
             if ($("#img").prop("checked")){
                 if (fs.existsSync(file)) { fs.copyFileSync(file,path.join(op.dir,op.name+"."+pngfile)) }
             }
             if (fs.existsSync(file)) { i=addImage(file,$("#r_1-3")); }
+
+            pngfile="plot_mean_cv_Original.png"
+            file=path.join(workdir,pngfile);
+            if ($("#img").prop("checked")){
+                if (fs.existsSync(file)) { fs.copyFileSync(file,path.join(op.dir,op.name+"."+pngfile)) }
+            }
+            if (fs.existsSync(file)) { i=addImage(file,$("#r_1-4")); }
+
+            pngfile="plot_mean_cv_RECODE.png"
+            file=path.join(workdir,pngfile);
+            if ($("#img").prop("checked")){
+                if (fs.existsSync(file)) { fs.copyFileSync(file,path.join(op.dir,op.name+"."+pngfile)) }
+            }
+            if (fs.existsSync(file)) { i=addImage(file,$("#r_1-5")); }
 
             
             /*

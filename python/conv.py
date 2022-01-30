@@ -49,6 +49,8 @@ recode.check_applicability(save = True,save_filename = 'check_applicability', sa
 print("---- wrote check_applicability.png", file=sys.stderr);
 
 #recode.plot_procedures(save = True, save_filename = 'plot_procedures',  save_format = 'png',show=False)
+recode.plot_mean_variance(save = True, save_filename = 'plot_mean_variance', save_format='png', show=False)
+print("---- wrote plot_mean_variance.png", file=sys.stderr);
 recode.plot_mean_cv(save = True, save_filename = 'plot_mean_cv', save_format='png', show=False)
 print("---- wrote plot_mean_cv.png", file=sys.stderr);
 
