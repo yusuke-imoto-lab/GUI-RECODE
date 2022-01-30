@@ -184,31 +184,33 @@ document.getElementById("btn_process").addEventListener('click', function() {
             }
             $("#r_1-1").empty();
             $("#r_1-2").empty();
-            $("#r_2-1").empty();
+            $("#r_1-3").empty();
             log.value+="Finished. " + result + "\n";
 
             op=path.parse(output_path);
             var dir=path.join(op.dir,op.name);
-            pngfile="plot_mean_cv_Original.png"
-            file=path.join(workdir,pngfile);
-            if ($("#img").prop("checked")){
-                if (fs.existsSync(file)) { fs.copyFileSync(file,path.join(op.dir,op.name+"."+pngfile)) }
-            }
-            if (fs.existsSync(file)) { i=addImage(file,$("#r_1-1")); }
-
-            pngfile="plot_mean_cv_RECODE.png"
-            file=path.join(workdir,pngfile);
-            if ($("#img").prop("checked")){
-                if (fs.existsSync(file)) { fs.copyFileSync(file,path.join(op.dir,op.name+"."+pngfile)) }
-            }
-            if (fs.existsSync(file)) { i=addImage(file,$("#r_1-2")); }
 
             pngfile="check_applicability.png"
             file=path.join(workdir,pngfile);
             if ($("#img").prop("checked")){
                 if (fs.existsSync(file)) { fs.copyFileSync(file,path.join(op.dir,op.name+"."+pngfile)) }
             }
-            if (fs.existsSync(file)) { i=addImage(file,$("#r_2-1")); }
+            if (fs.existsSync(file)) { i=addImage(file,$("#r_1-1")); }
+
+            pngfile="plot_mean_cv_Original.png"
+            file=path.join(workdir,pngfile);
+            if ($("#img").prop("checked")){
+                if (fs.existsSync(file)) { fs.copyFileSync(file,path.join(op.dir,op.name+"."+pngfile)) }
+            }
+            if (fs.existsSync(file)) { i=addImage(file,$("#r_1-2")); }
+
+            pngfile="plot_mean_cv_RECODE.png"
+            file=path.join(workdir,pngfile);
+            if ($("#img").prop("checked")){
+                if (fs.existsSync(file)) { fs.copyFileSync(file,path.join(op.dir,op.name+"."+pngfile)) }
+            }
+            if (fs.existsSync(file)) { i=addImage(file,$("#r_1-3")); }
+
             
             /*
             i=addImage(path.join(workdir + "plot_procedures_1_Original.png"),currentDiv);
