@@ -143,6 +143,10 @@ function removeLoading(){
   $("#loading").remove();
 }
 var cancel;
+document.getElementById("btn_reload").addEventListener('click',function(){
+    const {getCurrentWindow, globalShortcut} = remote
+    getCurrentWindow().reload()
+})
 document.getElementById("btn_process").addEventListener('click', function() {
         var a=1, b=10
         cancel=0;
