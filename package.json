@@ -1,6 +1,6 @@
 {
   "name": "RECODE",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "",
   "main": "main.js",
   "scripts": {
@@ -10,7 +10,8 @@
   "author": "RICOS Co. Ltd.",
   "license": "MIT",
   "devDependencies": {
-    "electron": "^16.0.7"
+    "electron": "^16.0.7",
+    "electron-builder": "^23.0.3"
   },
   "build": {
     "files": [
