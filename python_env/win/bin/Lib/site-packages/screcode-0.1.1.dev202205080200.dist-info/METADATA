@@ -1,0 +1,44 @@
+Metadata-Version: 2.1
+Name: screcode
+Version: 0.1.1.dev202205080200
+Summary: RECODE - resolution of curse of dimensionality in single-cell data analysis
+Home-page: https://github.com/yusuke-imoto-lab/RECODE
+Author: Yusuke Imoto
+Requires-Python: >=3.7,<3.10
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Requires-Dist: adjustText (>=0.7)
+Requires-Dist: anndata (>=0.8.0)
+Requires-Dist: datetime (>=4.0)
+Requires-Dist: matplotlib (>=3.4.3)
+Requires-Dist: numpy (>=1.20)
+Requires-Dist: scikit-learn (>=0.24)
+Requires-Dist: scipy (>=1.7.1)
+Requires-Dist: seaborn (>=0.11.2)
+Project-URL: Documentation, https://yusuke-imoto-lab.github.io/RECODE/
+Project-URL: Repository, https://github.com/yusuke-imoto-lab/RECODE
+Description-Content-Type: text/markdown
+
+# RECODE - python code
+
+### Installation
+
+To install RECODE package, use `pip` as follows:
+
+```
+$ pip install screcode
+```
+
+### Documentation
+
+[Tutorials and API reference](https://yusuke-imoto-lab.github.io/RECODE/index.html)
+
+
+### Requirements
+* Python3
+* numpy
+* scipy
+* scikit-learn
+
