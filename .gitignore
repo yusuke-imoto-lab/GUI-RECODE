@@ -9,6 +9,7 @@ out.csv
 # Editor
 .vscode
 *.h5
+*.docx
 
 python/bin
 python/include
