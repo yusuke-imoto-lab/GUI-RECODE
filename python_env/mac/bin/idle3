@@ -1,1 +1,6 @@
-idle3.9
+#!/bin/sh
+"exec" "$(dirname $0)/python3.9" "$0" "$@"
+
+from idlelib.pyshell import main
+if __name__ == '__main__':
+    main()
