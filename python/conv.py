@@ -41,7 +41,7 @@ else:
     print("---- loaded input file", file=sys.stderr)
     recode = screcode.RECODE(seq_target=seq)
     data_scRECODE = recode.fit_transform(np.array(data_pd.values))
-    data_pd.values[:,:] = data_scRECODE
+    data_pd = pd.DataFrame(data_scRECODE, index=data_pd.index, colmuns=data_pd.columns)
     print("----  recode done", file=sys.stderr)
     data_pd.to_csv(output_filename,sep=delimiter)
     print("---- wrote output file", file=sys.stderr);
